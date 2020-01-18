@@ -8902,11 +8902,6 @@ react-scripts@3.3.0:
   optionalDependencies:
     fsevents "2.1.2"
 
-react-spotify-api@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/react-spotify-api/-/react-spotify-api-2.4.0.tgz#c4cc8dd83a6c5eb1d75a385178097ab636eb72db"
-  integrity sha512-vRoZDQEP7G79Yf9W0GL4eDwDNrKCkPII0ev8e9d7sL4eSdbvJBSFgxjm7GuVYJIZ+ogwxw8LTC3O7bJLIBr1aw==
-
 react-transition-group@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.3.0.tgz#fea832e386cf8796c58b61874a3319704f5ce683"

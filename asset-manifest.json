@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/SpotifySearchApp/static/css/main.61c6834d.chunk.css",
+    "main.js": "/SpotifySearchApp/static/js/main.f1ac574a.chunk.js",
+    "main.js.map": "/SpotifySearchApp/static/js/main.f1ac574a.chunk.js.map",
+    "runtime-main.js": "/SpotifySearchApp/static/js/runtime-main.10433a52.js",
+    "runtime-main.js.map": "/SpotifySearchApp/static/js/runtime-main.10433a52.js.map",
+    "static/js/2.db9ec9ea.chunk.js": "/SpotifySearchApp/static/js/2.db9ec9ea.chunk.js",
+    "static/js/2.db9ec9ea.chunk.js.map": "/SpotifySearchApp/static/js/2.db9ec9ea.chunk.js.map",
+    "index.html": "/SpotifySearchApp/index.html",
+    "precache-manifest.7a2205246392211758f3314989637b7e.js": "/SpotifySearchApp/precache-manifest.7a2205246392211758f3314989637b7e.js",
+    "service-worker.js": "/SpotifySearchApp/service-worker.js",
+    "static/css/main.61c6834d.chunk.css.map": "/SpotifySearchApp/static/css/main.61c6834d.chunk.css.map",
+    "static/js/2.db9ec9ea.chunk.js.LICENSE": "/SpotifySearchApp/static/js/2.db9ec9ea.chunk.js.LICENSE"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.10433a52.js",
+    "static/js/2.db9ec9ea.chunk.js",
+    "static/css/main.61c6834d.chunk.css",
+    "static/js/main.f1ac574a.chunk.js"
+  ]
+}

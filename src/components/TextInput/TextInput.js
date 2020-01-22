@@ -54,6 +54,7 @@ function TextInput({
 					} else {
 						setPostion("flex-start");
 						setInput(event.target.value);
+						handleChange();
 						setShow(true);
 					}
 				}}

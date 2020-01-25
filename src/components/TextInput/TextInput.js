@@ -46,16 +46,13 @@ function TextInput({
 				placeholder="Search for Artists ..."
 				value={input}
 				onChange={function(event) {
-					let items = [];
 					if (event.target.value === "") {
 						setPostion("center");
 						setInput("");
-						setItems(items);
+						setItems([]);
 					} else {
 						setPostion("flex-start");
 						setInput(event.target.value);
-						handleChange();
-						setShow(true);
 					}
 				}}
 				onKeyDown={event => {

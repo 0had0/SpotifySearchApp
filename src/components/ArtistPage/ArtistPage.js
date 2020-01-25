@@ -46,6 +46,18 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
+function HandleBackFunctionality(exit) {
+	if (window.event) {
+		if (window.event.clientX < 40 && window.event.clientY < 0) {
+			console.log("Back button presed");
+		}
+	} else {
+		if (window.event.currentTarget.performance.navigation.type === 2) {
+			console.log("Back button presed");
+		}
+	}
+}
+
 export default function ArtistPage({ user, exit, token }) {
 	const classes = useStyles();
 	const [albums, setAlbums] = useState([]);
@@ -54,7 +66,8 @@ export default function ArtistPage({ user, exit, token }) {
 
 	useEffect(() => {
 		getAlbums(user.id, token, setAlbums, setError, setIsLoading);
-	}, []);
+		HandleBackFunctionality(exit);
+	});
 	useEffect(() => {
 		setTimeout(() => setError(null), 1000);
 	}, [error]);

@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Typography } from "@material-ui/core";
-import { client_id, redirect_uri, state } from "../Spotify";
+import { client_id, redirect_uri, scopes, state } from "../Spotify";
 
 export default function LoginButton() {
 	return (
@@ -10,6 +10,8 @@ export default function LoginButton() {
 				"?response_type=token" +
 				"&client_id=" +
 				client_id +
+				"&scope=" +
+				["user-follow-read", "user-follow-modify"].join("+") +
 				"&redirect_uri=" +
 				redirect_uri +
 				"&state=" +

@@ -2,9 +2,21 @@ import search, {
 	client_id,
 	client_secret,
 	redirect_uri,
+	scopes,
 	state,
-	getAlbums
+	isFollowing,
+	getAlbums,
+	follow
 } from "./spotify";
 
-export { client_id, client_secret, redirect_uri, state, getAlbums };
+export {
+	client_id,
+	client_secret,
+	redirect_uri,
+	state,
+	scopes,
+	getAlbums,
+	isFollowing,
+	follow
+};
 export default search;

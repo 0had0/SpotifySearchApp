@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/SpotifySearchApp/static/css/main.61c6834d.chunk.css",
-    "main.js": "/SpotifySearchApp/static/js/main.cecd28c2.chunk.js",
-    "main.js.map": "/SpotifySearchApp/static/js/main.cecd28c2.chunk.js.map",
+    "main.js": "/SpotifySearchApp/static/js/main.e3c3140b.chunk.js",
+    "main.js.map": "/SpotifySearchApp/static/js/main.e3c3140b.chunk.js.map",
     "runtime-main.js": "/SpotifySearchApp/static/js/runtime-main.10433a52.js",
     "runtime-main.js.map": "/SpotifySearchApp/static/js/runtime-main.10433a52.js.map",
-    "static/js/2.e9514bfd.chunk.js": "/SpotifySearchApp/static/js/2.e9514bfd.chunk.js",
-    "static/js/2.e9514bfd.chunk.js.map": "/SpotifySearchApp/static/js/2.e9514bfd.chunk.js.map",
+    "static/js/2.2082c559.chunk.js": "/SpotifySearchApp/static/js/2.2082c559.chunk.js",
+    "static/js/2.2082c559.chunk.js.map": "/SpotifySearchApp/static/js/2.2082c559.chunk.js.map",
     "index.html": "/SpotifySearchApp/index.html",
-    "precache-manifest.01eacb89c3493cad8df9f9c04f81cf65.js": "/SpotifySearchApp/precache-manifest.01eacb89c3493cad8df9f9c04f81cf65.js",
+    "precache-manifest.08f9810fb0ec92858e91a84805e0aba7.js": "/SpotifySearchApp/precache-manifest.08f9810fb0ec92858e91a84805e0aba7.js",
     "service-worker.js": "/SpotifySearchApp/service-worker.js",
     "static/css/main.61c6834d.chunk.css.map": "/SpotifySearchApp/static/css/main.61c6834d.chunk.css.map",
-    "static/js/2.e9514bfd.chunk.js.LICENSE": "/SpotifySearchApp/static/js/2.e9514bfd.chunk.js.LICENSE"
+    "static/js/2.2082c559.chunk.js.LICENSE": "/SpotifySearchApp/static/js/2.2082c559.chunk.js.LICENSE"
   },
   "entrypoints": [
     "static/js/runtime-main.10433a52.js",
-    "static/js/2.e9514bfd.chunk.js",
+    "static/js/2.2082c559.chunk.js",
     "static/css/main.61c6834d.chunk.css",
-    "static/js/main.cecd28c2.chunk.js"
+    "static/js/main.e3c3140b.chunk.js"
   ]
 }

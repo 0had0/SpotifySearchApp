@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const client_id = process.env.REACT_APP_CLIENT_ID; // Your client id
 export const client_secret = process.env.REACT_APP_CLIENT_SECRET; // Your secret
-export const redirect_uri = "http://localhost:3000/auth/"; // Your redirect uri
+export const redirect_uri = process.env.REACT_APP_REDIRECT_URI; // Your redirect uri
 export const scopes = process.env.REACT_APP_SCOPES;
 export const state = "hello123";
 

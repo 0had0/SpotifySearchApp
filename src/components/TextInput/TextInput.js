@@ -34,10 +34,15 @@ function TextInput({
 }) {
 	const classes = useStyles();
 	const [input, setInput] = useState("");
+	let timeout = null;
 
 	const handleChange = function() {
-		search(input, token, setItems, setError, setIsLoading);
-		setShow(true);
+		if (input === "") return;
+		clearTimeout(timeout);
+		timeout = setTimeout(function() {
+			search(input, token, setItems, setError, setIsLoading);
+			setShow(true);
+		}, 1000);
 	};
 	return (
 		<React.Fragment>
@@ -61,6 +66,7 @@ function TextInput({
 						handleChange();
 					}
 				}}
+				onKeyUp={handleChange}
 			/>
 			<IconButton
 				size="small"

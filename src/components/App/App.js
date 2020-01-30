@@ -1,16 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import { makeStyles, Snackbar } from "@material-ui/core";
+import { makeStyles, ThemeProvider, createMuiTheme } from "@material-ui/core";
+
+import { blue } from "@material-ui/core/colors";
 
 import TopBar from "../TopBar";
 import Container from "../Container";
 import SearchPage from "../SearchPage";
+import GetToken from "../GetToken";
+import ErrorComponent from "../Error";
 
 import "./App.css";
 
 import dotenv from "dotenv";
 
 dotenv.config();
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: blue["A200"]
+    }
+  }
+});
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -23,31 +36,23 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const hash = window.location.hash
-  .substring(1)
-  .split("&")
-  .reduce(function(initial, item) {
-    if (item) {
-      var parts = item.split("=");
-      initial[parts[0]] = decodeURIComponent(parts[1]);
-    }
-    return initial;
-  }, {});
-
 function App() {
   const classes = useStyles();
-  const [token, setToken] = useState(null);
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    let _token = hash.access_token;
-    if (_token) setToken(_token);
-  }, []);
   return (
-    <div className={classes.root}>
-      <TopBar />
-      <Container render={() => <SearchPage token={token} />} />
-    </div>
+    <Router>
+      <Route exact to="/">
+        <ThemeProvider theme={theme}>
+          <div className={classes.root}>
+            <TopBar />
+            <Container render={() => <SearchPage />} />
+            <ErrorComponent />
+          </div>
+        </ThemeProvider>
+      </Route>
+      <Route exact to="/auth/:token">
+        <GetToken />
+      </Route>
+    </Router>
   );
 }
 

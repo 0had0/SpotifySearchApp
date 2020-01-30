@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles, Grid } from "@material-ui/core";
-import Alert from "@material-ui/lab/Alert";
+import { makeStyles, Grid, Grow } from "@material-ui/core";
+import { connect } from "react-redux";
 
 import Box from "../Box";
 import TextInput from "../TextInput";
@@ -11,28 +11,44 @@ import Spiner from "../Spiner";
 
 import Artist from "../Artist";
 
+const mapStateToProps = state => ({
+	token:
+		(localStorage.getItem("token") !== "null" &&
+			localStorage.getItem("token") !== "undefined" &&
+			localStorage.getItem("token")) ||
+		state.token
+});
+
 const useStyles = makeStyles(theme => ({
 	items: {
 		padding: theme.spacing(3, 1)
-	},
-	alert: {
-		width: "100%",
-		padding: theme.spacing(2, 3)
 	}
 }));
 
-export default function SearchPage({ token }) {
+function SearchPage({ token, dispatch }) {
 	const classes = useStyles();
 	const [position, setPostion] = useState("center");
 	const [items, setItems] = useState([]);
 	const [show, setShow] = useState(false);
 	const [user, setUser] = useState(undefined);
-	const [error, setError] = useState(null);
+	const [error, setError] = useState();
 	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
-		setTimeout(() => setError(null), 1000);
+		// disable back button
+		window.history.pushState(null, null, window.location.href);
+		window.onpopstate = function() {
+			// back button will do :
+			setUser(undefined);
+			window.history.go(1);
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+	useEffect(() => {
+		dispatch({ type: "SET_ERROR", error });
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [error]);
+
 	return (
 		<React.Fragment>
 			<div
@@ -62,9 +78,13 @@ export default function SearchPage({ token }) {
 						/>
 
 						{!isLoading ? (
-							error === null ? (
-								<div style={{ width: "100%" }}>
-									{show && (
+							<div style={{ width: "100%" }}>
+								{show && (
+									<Grow
+										in={show}
+										style={{ transformOrigin: "0 0 0" }}
+										{...(show ? { timeout: 1000 } : {})}
+									>
 										<Grid
 											container
 											justify="center"
@@ -73,7 +93,9 @@ export default function SearchPage({ token }) {
 										>
 											{items.map((item, i) => (
 												<Items
-													open={() => setUser(item)}
+													open={() => {
+														setUser(item);
+													}}
 													key={i}
 													render={() => (
 														<Artist artist={item} />
@@ -81,29 +103,33 @@ export default function SearchPage({ token }) {
 												/>
 											))}
 										</Grid>
-									)}
-								</div>
-							) : (
-								<div className={classes.alert}>
-									<Alert severity={error.severity}>
-										{error.message}
-									</Alert>
-								</div>
-							)
+									</Grow>
+								)}
+							</div>
 						) : (
 							<Spiner />
 						)}
 					</React.Fragment>
 				) : (
-					<ArtistPage
-						user={user}
-						token={token}
-						exit={() => {
-							setUser(undefined);
-						}}
-					/>
+					<Grow
+						in={true}
+						style={{ transformOrigin: "0 0 0" }}
+						timeout={1000}
+					>
+						<ArtistPage
+							user={user}
+							token={token}
+							exit={() => {
+								setUser(undefined);
+							}}
+						/>
+					</Grow>
 				)}
 			</div>
 		</React.Fragment>
 	);
 }
+
+export default connect(mapStateToProps, dispatch => ({
+	dispatch
+}))(SearchPage);

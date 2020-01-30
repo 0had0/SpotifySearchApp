@@ -24,7 +24,8 @@ export default function Items({ render, open, href }) {
 				<CardActionArea
 					className={classes.Action}
 					onClick={open ? open : () => {}}
-					href={href ? href : ""}
+					href={href ? href : null}
+					target="_blank"
 				>
 					{render()}
 				</CardActionArea>

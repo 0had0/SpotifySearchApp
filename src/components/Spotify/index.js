@@ -6,7 +6,8 @@ import search, {
 	state,
 	isFollowing,
 	getAlbums,
-	follow
+	follow,
+	unfollow
 } from "./spotify";
 
 export {
@@ -17,6 +18,7 @@ export {
 	scopes,
 	getAlbums,
 	isFollowing,
-	follow
+	follow,
+	unfollow
 };
 export default search;

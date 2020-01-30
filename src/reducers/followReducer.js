@@ -6,9 +6,9 @@ const initialState = {
 };
 
 const followReducer = (action, state = initialState) => {
-	if (!action) return;
+	if (!action) return state;
 	switch (action.type) {
-		case ACTION.TYPE.ADD_SEARCH:
+		case ACTION.TYPES.ADD_SEARCH:
 			const increasedState = {
 				searchs: [
 					...state.searchs,

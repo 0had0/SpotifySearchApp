@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const client_id = process.env.REACT_APP_CLIENT_ID; // Your client id
 export const client_secret = process.env.REACT_APP_CLIENT_SECRET; // Your secret
-export const redirect_uri = process.env.REACT_APP_REDIRECT_URI; // Your redirect uri
+export const redirect_uri = "http://localhost:3000/auth/"; // Your redirect uri
 export const scopes = process.env.REACT_APP_SCOPES;
 export const state = "hello123";
 
@@ -20,22 +20,29 @@ const search = async function(input, token, setItems, setError, setIsLoading) {
 			}
 		)
 		.then(res => {
-			console.log(res);
 			setItems(res.data.artists.items);
 			setIsLoading(false);
 			if (res.data.artists.items.length === 0)
 				setError({ message: "nothing found", severity: "info" });
 		})
 		.catch(error => {
-			console.log(error);
 			setIsLoading(false);
-			setError(Object.assign({}, error, { severity: "error" }));
+			if (error) {
+				try {
+					setError({
+						...error.response.data.error,
+						severity: "error"
+					});
+				} catch (error) {
+					setError({ ...error, severity: "error" });
+				}
+			} else setError({ severity: "error", message: "Slow Connection" });
 		});
 };
 
-const getAlbums = async function(id, token, setAlbums, setError, setIsLoading) {
+const getAlbums = function(id, token, setAlbums, setError, setIsLoading) {
 	setIsLoading(true);
-	await axios
+	axios
 		.get(`https://api.spotify.com/v1/artists/${id}/albums`, {
 			headers: {
 				Authorization: `Bearer ${token}`
@@ -48,13 +55,19 @@ const getAlbums = async function(id, token, setAlbums, setError, setIsLoading) {
 				setError({ message: "nothing found", severity: "info" });
 		})
 		.catch(error => {
-			console.log(error);
 			setIsLoading(false);
 			setError(Object.assign({}, error, { severity: "error" }));
 		});
 };
 
-const isFollowing = async function(id, token, setIsLoading, type, setError) {
+const isFollowing = async function(
+	id,
+	token,
+	setIsLoading,
+	setError,
+	setIsFollowing,
+	type = "artist"
+) {
 	setIsLoading(true);
 	await axios
 		.get(
@@ -65,50 +78,63 @@ const isFollowing = async function(id, token, setIsLoading, type, setError) {
 				}
 			}
 		)
-		.then(([res]) => {
+		.then(res => {
 			setIsLoading(false);
-			return res;
+			setIsFollowing(res.data[0]);
 		})
 		.catch(error => {
-			console.log(error);
 			setIsLoading(false);
 			setError(error);
-			return null;
 		});
 };
 
 const follow = async function(
 	id,
-	type,
 	token,
 	setError,
-	setFollow,
+	setIsFollowing,
 	setIsLoading
 ) {
-	await axios
-		.put(`https://api.spotify.com/v1/me/following?type=${type}&ids=${id}`, {
-			headers: {
-				Authorization: `Bearer ${token}`,
-				Accept: "application/json",
-				"Content-Type": "application/json"
-			}
+	setIsLoading(true);
+	await axios({
+		url: "https://api.spotify.com/v1/me/following?type=artist&ids=" + id,
+		method: "PUT",
+		headers: {
+			Accept: "application/json",
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${token}`
+		}
+	})
+		.then(() => {
+			setIsLoading(false);
+			setIsFollowing(true);
 		})
-		.then(res => {
-			const following = isFollowing(
-				id,
-				token,
-				setIsLoading,
-				type,
-				setError
-			);
-			if (following) {
-				setFollow(following);
-			} else {
-				setError({ message: "error" });
-			}
-		})
-		.catch(error => setError(error));
+		.catch(error => {
+			setIsLoading(false);
+			setError({ ...error, severity: "error" });
+		});
 };
 
-export { getAlbums, isFollowing, follow };
+const unfollow = function(id, token, setError, setIsFollowing, setIsLoading) {
+	setIsLoading(true);
+	axios
+		.delete(
+			"https://api.spotify.com/v1/me/following?type=artist&ids=" + id,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`
+				}
+			}
+		)
+		.then(() => {
+			setIsLoading(false);
+			setIsFollowing(false);
+		})
+		.catch(error => {
+			setIsLoading(false);
+			setError({ ...error.error, severity: "error" });
+		});
+};
+
+export { getAlbums, isFollowing, follow, unfollow };
 export default search;

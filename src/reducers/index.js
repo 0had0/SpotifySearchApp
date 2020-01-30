@@ -1,3 +1,10 @@
-import followReducer from "./followReducer";
+// import followReducer from "./followReducer";
+import reducer from "./reducer";
 
-export default followReducer;
+// import { combineReducers } from "redux";
+
+// export default combineReducers({
+// 	followReducer,
+// 	tokenReducer
+
+export default reducer;

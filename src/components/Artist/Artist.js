@@ -1,4 +1,5 @@
 import React from "react";
+import noIMG from "../img/skeleton.jpg";
 
 import {
 	CardMedia,
@@ -19,14 +20,14 @@ const useStyles = makeStyles(theme => ({
 
 export default function Artist({ artist }) {
 	const classes = useStyles();
-	const src = artist.images[1] ? artist.images[1].url : "";
+	const src = artist.images[1] ? artist.images[1].url : noIMG;
 	return (
 		<React.Fragment>
 			<CardMedia
 				component="img"
 				alt={artist.name}
 				height="285"
-				src={src}
+				src={src ? src : null}
 				title={artist.name}
 			/>
 

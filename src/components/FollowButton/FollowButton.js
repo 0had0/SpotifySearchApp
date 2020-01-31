@@ -22,9 +22,9 @@ function FollowButton({ user, token, dispatch }) {
 
 	const handleClick = () => {
 		if (following) {
-			unfollow(user.id, token, setError, setIsFollowing, setIsLoading);
+			unfollow(user, token, setError, setIsFollowing, setIsLoading);
 		} else {
-			follow(user.id, token, setError, setIsFollowing, setIsLoading);
+			follow(user, token, setError, setIsFollowing, setIsLoading);
 		}
 	};
 

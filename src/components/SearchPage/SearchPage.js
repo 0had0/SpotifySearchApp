@@ -11,6 +11,8 @@ import Spiner from "../Spiner";
 
 import Artist from "../Artist";
 
+import gtag from '../../gtag'
+
 const mapStateToProps = state => ({
 	token:
 		(localStorage.getItem("token") !== "null" &&
@@ -95,6 +97,10 @@ function SearchPage({ token, dispatch }) {
 												<Items
 													open={() => {
 														setUser(item);
+														gtag('event', 'auth_was_clicked', {
+															'event_label': item.name,
+															'value': item.id
+														})
 													}}
 													key={i}
 													render={() => (
@@ -121,6 +127,10 @@ function SearchPage({ token, dispatch }) {
 							token={token}
 							exit={() => {
 								setUser(undefined);
+								gtag('event', 'auth_was_dismissed', {
+									'event_label': user.name,
+									'value': user.id
+								})
 							}}
 						/>
 					</Grow>

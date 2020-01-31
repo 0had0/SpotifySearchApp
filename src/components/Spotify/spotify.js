@@ -1,10 +1,12 @@
 import axios from "axios";
+import gtag from '../../gtag'
 
 export const client_id = process.env.REACT_APP_CLIENT_ID; // Your client id
 export const client_secret = process.env.REACT_APP_CLIENT_SECRET; // Your secret
 export const redirect_uri = process.env.REACT_APP_REDIRECT_URI; // Your redirect uri
 export const scopes = process.env.REACT_APP_SCOPES;
 export const state = "hello123";
+
 
 const search = async function(input, token, setItems, setError, setIsLoading) {
 	setIsLoading(true);
@@ -20,6 +22,10 @@ const search = async function(input, token, setItems, setError, setIsLoading) {
 			}
 		)
 		.then(res => {
+			gtag('event', 'view_search_results', {
+				'event_label': 'search input',
+				'value':input
+			})
 			setItems(res.data.artists.items);
 			setIsLoading(false);
 			if (res.data.artists.items.length === 0)
@@ -40,10 +46,10 @@ const search = async function(input, token, setItems, setError, setIsLoading) {
 		});
 };
 
-const getAlbums = function(id, token, setAlbums, setError, setIsLoading) {
+const getAlbums = function(user, token, setAlbums, setError, setIsLoading) {
 	setIsLoading(true);
 	axios
-		.get(`https://api.spotify.com/v1/artists/${id}/albums`, {
+		.get(`https://api.spotify.com/v1/artists/${user.id}/albums`, {
 			headers: {
 				Authorization: `Bearer ${token}`
 			}
@@ -89,7 +95,7 @@ const isFollowing = async function(
 };
 
 const follow = async function(
-	id,
+	user,
 	token,
 	setError,
 	setIsFollowing,
@@ -97,7 +103,7 @@ const follow = async function(
 ) {
 	setIsLoading(true);
 	await axios({
-		url: "https://api.spotify.com/v1/me/following?type=artist&ids=" + id,
+		url: "https://api.spotify.com/v1/me/following?type=artist&ids=" + user.id,
 		method: "PUT",
 		headers: {
 			Accept: "application/json",
@@ -106,6 +112,10 @@ const follow = async function(
 		}
 	})
 		.then(() => {
+			gtag('event', 'follow', {
+				'event_label': user.name,
+				'value': user.id
+			})
 			setIsLoading(false);
 			setIsFollowing(true);
 		})
@@ -115,11 +125,11 @@ const follow = async function(
 		});
 };
 
-const unfollow = function(id, token, setError, setIsFollowing, setIsLoading) {
+const unfollow = function(user, token, setError, setIsFollowing, setIsLoading) {
 	setIsLoading(true);
 	axios
 		.delete(
-			"https://api.spotify.com/v1/me/following?type=artist&ids=" + id,
+			"https://api.spotify.com/v1/me/following?type=artist&ids=" + user.id,
 			{
 				headers: {
 					Authorization: `Bearer ${token}`
@@ -127,6 +137,10 @@ const unfollow = function(id, token, setError, setIsFollowing, setIsLoading) {
 			}
 		)
 		.then(() => {
+			gtag('event', 'unfollow', {
+				'event_label': user.name,
+				'value': user.id
+			})
 			setIsLoading(false);
 			setIsFollowing(false);
 		})

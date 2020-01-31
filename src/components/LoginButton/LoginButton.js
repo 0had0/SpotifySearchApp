@@ -9,7 +9,7 @@ export const hrefLink = `https://accounts.spotify.com/authorize?response_type=to
 
 export default function LoginButton() {
 	return (
-		<Button href={hrefLink} style={{ flexGrow: 1 }}>
+		<Button href={hrefLink} style={{ flexGrow: 1 }} >
 			<Typography>
 				Login&nbsp;
 				<i className="fa fa-spotify"></i>

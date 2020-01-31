@@ -4,7 +4,10 @@ import { makeStyles, IconButton } from "@material-ui/core";
 
 import SearchIcon from "@material-ui/icons/Search";
 
+
 import search from "../Spotify";
+
+import {connect} from 'react-redux'
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -30,10 +33,12 @@ function TextInput({
 	setItems,
 	setShow,
 	setError,
-	setIsLoading
+	setIsLoading,
+	Sinput,
+	dispatch
 }) {
 	const classes = useStyles();
-	const [input, setInput] = useState("");
+	const [input, setInput] = useState(Sinput || '');
 	let timeout = null;
 
 	const handleChange = function() {
@@ -42,7 +47,9 @@ function TextInput({
 		timeout = setTimeout(function() {
 			search(input, token, setItems, setError, setIsLoading);
 			setShow(true);
+			dispatch({type:'ADD_INPUT', input} )
 		}, 1000);
+
 	};
 	return (
 		<React.Fragment>
@@ -78,4 +85,4 @@ function TextInput({
 	);
 }
 
-export default TextInput;
+export default connect(state => ({Sinput: state.input}), dispatch=>({dispatch}))(TextInput)

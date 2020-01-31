@@ -3,12 +3,15 @@ import ACTION from "../actions";
 const initialState = {
 	token: null,
 	error: null,
-	showError: false
+	showError: false,
+	input: ''
 };
 
 const reducer = (state = initialState, action) => {
 	if (!action) return state;
 	switch (action.type) {
+		case 'ADD_INPUT':
+			return {...state, input: action.input}
 		case ACTION.TYPES.ADD_TOKEN:
 			return { token: action.token };
 		case ACTION.TYPES.TOGGLE_ERROR:

@@ -17,6 +17,8 @@ import Album from "../Album";
 import Spiner from "../Spiner";
 import FollowButton from "../FollowButton";
 
+import gtag from '../../gtag'
+
 const useStyles = makeStyles(theme => ({
 	root: {
 		display: "flex",
@@ -54,7 +56,7 @@ export default function ArtistPage({ user, exit, token }) {
 	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
-		getAlbums(user.id, token, setAlbums, setError, setIsLoading);
+		getAlbums(user, token, setAlbums, setError, setIsLoading);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	useEffect(() => {
@@ -106,6 +108,12 @@ export default function ArtistPage({ user, exit, token }) {
 						{albums.map((album, i) => (
 							<Items
 								key={i}
+								onClick={()=>{
+									gtag('event', 'album_was_clicked', {
+										'event_label':album.name,
+										'value':album.id
+									})
+								}}
 								href={album.external_urls.spotify}
 								render={() => <Album album={album} />}
 							/>

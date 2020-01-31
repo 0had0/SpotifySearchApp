@@ -17,7 +17,10 @@ const useStyles = makeStyles(theme => ({
 		justifyContent: "space-around"
 	}
 }));
-
+function formatNumber(num)
+{
+    return ("" + num).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, function($1) { return $1 + "." });
+}
 export default function Artist({ artist }) {
 	const classes = useStyles();
 	const src = artist.images[1] ? artist.images[1].url : noIMG;
@@ -37,7 +40,7 @@ export default function Artist({ artist }) {
 						{artist.name}
 					</Typography>
 					<Typography variant="body2" component="p">
-						{artist.followers.total}&nbsp;followers
+						{formatNumber(artist.followers.total)}&nbsp;followers
 					</Typography>
 				</div>
 				<Rating name="pristine" value={null} />

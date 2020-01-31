@@ -127,9 +127,9 @@ function SearchPage({ token, dispatch }) {
 							token={token}
 							exit={() => {
 								setUser(undefined);
-								gtag('event', 'auth_was_dismissed', {
-									'event_label': user.name,
-									'value': user.id
+								gtag('event', 'Search dismissed', {
+									'event_label': user.name +" - "+user.id,
+									'value': 1
 								})
 							}}
 						/>

@@ -16,9 +16,9 @@ const hash = window.location.hash
 		return initial;
 	}, {});
 
-const logLogin = (token)=>{gtag('event', 'login', {
-  			'event_label': 'token provided',
-  			'value': token
+const logLogin = (token)=>{gtag('event', 'Login', {
+  			'event_label': 'Login',
+  			'value': 1
 			})}
 
 function GetToken({ dispatch }) {

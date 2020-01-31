@@ -109,9 +109,9 @@ export default function ArtistPage({ user, exit, token }) {
 							<Items
 								key={i}
 								onClick={()=>{
-									gtag('event', 'album_was_clicked', {
+									gtag('event', 'Album', {
 										'event_label':album.name,
-										'value':album.id
+										'value':1
 									})
 								}}
 								href={album.external_urls.spotify}

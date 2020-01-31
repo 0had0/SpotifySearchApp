@@ -97,9 +97,9 @@ function SearchPage({ token, dispatch }) {
 												<Items
 													open={() => {
 														setUser(item);
-														gtag('event', 'auth_was_clicked', {
-															'event_label': item.name,
-															'value': item.id
+														gtag('event', 'Artist', {
+															'event_label': item.name + ' - ' + item.id,
+															'value': 1
 														})
 													}}
 													key={i}

@@ -22,9 +22,9 @@ const search = async function(input, token, setItems, setError, setIsLoading) {
 			}
 		)
 		.then(res => {
-			gtag('event', 'view_search_results', {
-				'event_label': 'search input',
-				'value':input
+			gtag('event', 'Search', {
+				'event_label': input,
+				'value':1
 			})
 			setItems(res.data.artists.items);
 			setIsLoading(false);
@@ -112,9 +112,9 @@ const follow = async function(
 		}
 	})
 		.then(() => {
-			gtag('event', 'follow', {
-				'event_label': user.name,
-				'value': user.id
+			gtag('event', 'Follow', {
+				'event_label': user.name + ' - ' + user.id,
+				'value': 1
 			})
 			setIsLoading(false);
 			setIsFollowing(true);
@@ -137,9 +137,9 @@ const unfollow = function(user, token, setError, setIsFollowing, setIsLoading) {
 			}
 		)
 		.then(() => {
-			gtag('event', 'unfollow', {
-				'event_label': user.name,
-				'value': user.id
+			gtag('event', 'Unfollow', {
+				'event_label': user.name + ' - ' + user.id,
+				'value': 1
 			})
 			setIsLoading(false);
 			setIsFollowing(false);
